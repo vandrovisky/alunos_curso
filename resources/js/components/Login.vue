@@ -59,7 +59,7 @@
 
 <script>
     export default {
-        props: ['csrf_token'],
+        props: ['csrf_token'], //data (semelhante)
         data() {
             return {
                 email: '',
@@ -67,29 +67,28 @@
             }
         },
         methods: {
-            login(e){
+            login(e) {
 
-                let url = 'http://127.0.0.1:8000/api/login';
-                let config = {
+                let url = 'http://localhost:8000/api/login'
+                let configuracao = {
                     method: 'post',
                     body: new URLSearchParams({
                         'email': this.email,
                         'password': this.password
-
                     })
                 }
 
-                fetch(url, config)
+                fetch(url, configuracao)
                     .then(response => response.json())
                     .then(data => {
-                        if(data.token){
+                        if(data.token) {
                             document.cookie = 'token='+data.token
                         }
-                        e.target.submit()
                     })
-               
-            }       
-        } 
+                
+                //dar sequência no envio do form de autenticação por sessão
+                e.target.submit()
+            }
+        }
     }
 </script>
-
